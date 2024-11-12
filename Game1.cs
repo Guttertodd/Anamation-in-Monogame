@@ -14,7 +14,9 @@ namespace Anamation_in_Monogame
         Texture2D greyTribbleTexture;
         Rectangle greyTribbleRect;
         Vector2 greyTribbleSpeed;
+        Color greyTribble;
 
+        Color backgroundColor;
 
         public Game1()
         {
@@ -25,6 +27,7 @@ namespace Anamation_in_Monogame
 
         protected override void Initialize()
         {
+            backgroundColor = Color.CornflowerBlue;
             // TODO: Add your initialization logic here
             greyTribbleRect = new Rectangle(300, 10, 100, 100);
             greyTribbleSpeed = new Vector2(2, 2);
@@ -54,17 +57,26 @@ namespace Anamation_in_Monogame
 
             greyTribbleRect.X += (int)greyTribbleSpeed.X;
             if (greyTribbleRect.Right > window.Width || greyTribbleRect.Left < 0)
+            {
                 greyTribbleSpeed.X *= - 1;
-            greyTribbleRect.Y += (int)greyTribbleSpeed.Y;
-            if (greyTribbleRect.Top > window.Height || greyTribbleRect.Bottom < 0)
-                greyTribbleSpeed.Y *= -1;
+                backgroundColor = new Color(136, 252, 3);
+                backgroundColor = new Color(166, 292, 122);
+                backgroundColor = new Color(36, 142, 322);
+                backgroundColor = new Color(242, 56, 364);
+                backgroundColor = new Color(196, 102, 398);
+            }
+
+            //greyTribbleRect.Y += (int)greyTribbleSpeed.Y;
+            //if (greyTribbleRect.Top > window.Height || greyTribbleRect.Bottom < 0)
+            //    greyTribbleSpeed.Y *= -1;
+           
            
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(backgroundColor);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
