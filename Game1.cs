@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -17,11 +18,14 @@ namespace Anamation_in_Monogame
 
         Rectangle window;
 
+        SoundEffect tribbleSound;
+
         Texture2D greyTribbleTexture, brownTribbleTexture, creamTribbleTexture, orangeTribbleTexture, introTexture;
         Rectangle greyTribbleRect, brownTribbleRect, creamTribbleRect, orangeTribbleRect;
         Vector2 greyTribbleSpeed, brownTribbleSpeed, creamTribbleSpeed, orangeTribbleSpeed;
         Color greyTribble, brownTribble, creamTribble, orangeTribble;
 
+        
         Screen screen;
 
         MouseState mouseState;
@@ -72,6 +76,7 @@ namespace Anamation_in_Monogame
             creamTribbleTexture = Content.Load<Texture2D>("tribbleCream");
             orangeTribbleTexture = Content.Load<Texture2D>("tribbleOrange");
             introTexture = Content.Load<Texture2D>("Untitled");
+            tribbleSound = Content.Load<SoundEffect>("");
         }
 
         protected override void Update(GameTime gameTime)
