@@ -76,7 +76,7 @@ namespace Anamation_in_Monogame
             creamTribbleTexture = Content.Load<Texture2D>("tribbleCream");
             orangeTribbleTexture = Content.Load<Texture2D>("tribbleOrange");
             introTexture = Content.Load<Texture2D>("Untitled");
-            tribbleSound = Content.Load<SoundEffect>("");
+            tribbleSound = Content.Load<SoundEffect>("tribble_coo");
         }
 
         protected override void Update(GameTime gameTime)
@@ -89,6 +89,7 @@ namespace Anamation_in_Monogame
             // TODO: Add your update logic here
 
             
+
             if (screen == Screen.Intro)
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
@@ -101,6 +102,7 @@ namespace Anamation_in_Monogame
                 {
                     greyTribbleSpeed.X *= -1;
                     backgroundColor = new Color(255, 255, 100);
+                    tribbleSound.Play();
                 }
 
                 brownTribbleRect.Y += (int)brownTribbleSpeed.Y;
@@ -108,6 +110,7 @@ namespace Anamation_in_Monogame
                 {
                     brownTribbleSpeed.Y *= -1;
                     backgroundColor = new Color(255, 128, 128);
+                    tribbleSound.Play();
                 }
 
                 creamTribbleRect.Y += (int)creamTribbleSpeed.Y;
@@ -115,6 +118,7 @@ namespace Anamation_in_Monogame
                 {
                     creamTribbleSpeed.Y *= -1;
                     backgroundColor = new Color(203, 195, 227);
+                    tribbleSound.Play();
                 }
 
                 creamTribbleRect.X += (int)creamTribbleSpeed.X;
@@ -135,6 +139,7 @@ namespace Anamation_in_Monogame
                 {
                     orangeTribbleSpeed.X *= -1;
                     backgroundColor = new Color(19, 230, 59);
+                    tribbleSound.Play();
                 }
             }
             //greyTribbleRect.Y += (int)greyTribbleSpeed.Y;
