@@ -39,16 +39,16 @@ namespace Anamation_in_Monogame
         {
             backgroundColor = Color.CornflowerBlue;
             // TODO: Add your initialization logic here
-            greyTribbleRect = new Rectangle(300, 10, 100, 100);
+            greyTribbleRect = new Rectangle(150, 100, 100, 100);
             greyTribbleSpeed = new Vector2(2, 2);
 
-            brownTribbleRect = new Rectangle(100, 10, 100, 100);
+            brownTribbleRect = new Rectangle(100, 100, 100, 100);
             brownTribbleSpeed = new Vector2(2, 2);
 
-            creamTribbleRect = new Rectangle(10,100,100,100);
+            creamTribbleRect = new Rectangle(10,50,100,100);
             creamTribbleSpeed = new Vector2(2, 2);
 
-            orangeTribbleRect = new Rectangle(300, 100, 100, 100);
+            orangeTribbleRect = new Rectangle(300, 125, 100, 100);
             orangeTribbleSpeed = new Vector2(2, 2);
 
             window = new Rectangle(0, 0, 800, 600);
@@ -129,7 +129,7 @@ namespace Anamation_in_Monogame
                 if (orangeTribbleRect.Right > window.Width || orangeTribbleRect.Left < 0)
                 {
                     orangeTribbleSpeed.X *= -1;
-
+                    backgroundColor = new Color(19, 230, 59);
                 }
             }
             //greyTribbleRect.Y += (int)greyTribbleSpeed.Y;
