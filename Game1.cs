@@ -19,16 +19,17 @@ namespace Anamation_in_Monogame
         Rectangle window;
 
         SoundEffect tribbleSound;
-
-        Texture2D greyTribbleTexture, brownTribbleTexture, creamTribbleTexture, orangeTribbleTexture, introTexture;
+        private Texture2D greyTribbleTexture, brownTribbleTexture, creamTribbleTexture, orangeTribbleTexture, introTexture, endTexture;
         Rectangle greyTribbleRect, brownTribbleRect, creamTribbleRect, orangeTribbleRect;
         Vector2 greyTribbleSpeed, brownTribbleSpeed, creamTribbleSpeed, orangeTribbleSpeed;
         Color greyTribble, brownTribble, creamTribble, orangeTribble;
-
+        int creamTribblebounces;
         
         Screen screen;
 
-        MouseState mouseState;
+        SpriteFont textFont;
+
+        MouseState mouseState, previousMouseState;
 
         Color backgroundColor;
 
@@ -62,6 +63,8 @@ namespace Anamation_in_Monogame
 
             screen = Screen.Intro;
 
+    
+
             base.Initialize();
 
         }
@@ -77,26 +80,34 @@ namespace Anamation_in_Monogame
             orangeTribbleTexture = Content.Load<Texture2D>("tribbleOrange");
             introTexture = Content.Load<Texture2D>("Untitled");
             tribbleSound = Content.Load<SoundEffect>("tribble_coo");
+            endTexture = Content.Load<Texture2D>("Tribbles_TOS-Lot-1");
+            textFont = Content.Load<SpriteFont>("TextFont");
         }
 
         protected override void Update(GameTime gameTime)
         {
+            previousMouseState = mouseState;
             mouseState = Mouse.GetState();
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
 
+         
             
 
             if (screen == Screen.Intro)
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
                     screen = Screen.TribbleYard;
             }
-            else if (screen == Screen.TribbleYard)
+            else if (screen == Screen.TribbleYard)             
             {
+                if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
+                    screen = Screen.End;
+
                 greyTribbleRect.X += (int)greyTribbleSpeed.X;
                 if (greyTribbleRect.Right > window.Width || greyTribbleRect.Left < 0)
                 {
@@ -141,10 +152,15 @@ namespace Anamation_in_Monogame
                     backgroundColor = new Color(19, 230, 59);
                     tribbleSound.Play();
                 }
+
+                if (screen == Screen.End)
+                {
+                    if (mouseState.LeftButton == ButtonState.Pressed)
+                        screen = Screen.End;
+                }
+
             }
-            //greyTribbleRect.Y += (int)greyTribbleSpeed.Y;
-            //if (greyTribbleRect.Top > window.Height || greyTribbleRect.Bottom < 0)
-            //    greyTribbleSpeed.Y *= -1;
+           
 
 
             base.Update(gameTime);
@@ -159,14 +175,27 @@ namespace Anamation_in_Monogame
             if (screen == Screen.Intro)
             {
                 _spriteBatch.Draw(introTexture, window, Color.White);
+                _spriteBatch.DrawString(textFont, "Left Click to Continue to the Tribble Yard!", new Vector2(125, 275), Color.White);
             }
+          
+
             else if (screen == Screen.TribbleYard)
             {
                 _spriteBatch.Draw(greyTribbleTexture, greyTribbleRect, Color.White);
                 _spriteBatch.Draw(brownTribbleTexture, brownTribbleRect, Color.White);
                 _spriteBatch.Draw(creamTribbleTexture, creamTribbleRect, Color.White);
                 _spriteBatch.Draw(orangeTribbleTexture, orangeTribbleRect, Color.White);
+                _spriteBatch.DrawString(textFont, "Left Click to end the Game!", new Vector2(210, 275), Color.White);
+
             }
+            else if (screen == Screen.End)
+            {
+                _spriteBatch.Draw(endTexture, window, Color.White);
+
+
+            }
+
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
